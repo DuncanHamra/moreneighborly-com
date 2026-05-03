@@ -1,49 +1,685 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>More Neighborly — Back Soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --coral: #E86040;
+      --navy: #1B2B4B;
+      --navy-light: #2e4070;
+      --yellow: #EBBD40;
+      --bg: #FDFAF6;
+      --bg2: #FFF6EE;
+      --text: #1B2B4B;
+      --muted: #6b7a99;
+      --pink: #F9D5C8;
+      --sage: #C8E8D0;
+      --lavender: #D6D0F0;
+      --tan: #F0DEC0;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--navy);
+    }
+
+    .logo-text {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 17px;
+      letter-spacing: -0.01em;
+    }
+
+    .face-wrap {
+      width: 40px;
+      height: 40px;
+      animation: breathe 4s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .baby-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--yellow);
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 36px;
+      border: 2px solid var(--navy);
+    }
+
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(52px, 8vw, 96px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--coral);
+      margin-bottom: 12px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--navy);
+    }
+
+    .hero .subtitle {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(22px, 3.5vw, 32px);
+      font-weight: 400;
+      color: var(--navy);
+      line-height: 1.3;
+      margin-bottom: 28px;
+    }
+
+    .hero .body {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 540px;
+      text-wrap: pretty;
+    }
+
+    .hero .body strong {
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px 16px;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      max-width: 120px;
+      height: 1px;
+      background: #d4cdc4;
+    }
+
+    /* ── COMING SECTION ── */
+    .coming {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 24px 24px 80px;
+    }
+
+    .coming-heading {
+      text-align: center;
+      font-family: 'Fraunces', serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .coming-sub {
+      text-align: center;
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 48px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      text-wrap: pretty;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .card-full {
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 640px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      border-radius: 20px;
+      padding: 32px 28px;
+      border: 2px solid rgba(27,43,75,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:nth-child(1) { background: var(--pink); }
+    .card:nth-child(2) { background: var(--sage); }
+    .card:nth-child(3) { background: var(--lavender); }
+    .card:nth-child(4) { background: var(--tan); }
+
+    .card-icon {
+      width: 56px;
+      height: 56px;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--navy-light);
+    }
+
+    /* ── METTA QUOTE ── */
+    .quote-section {
+      background: var(--navy);
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .quote-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .quote-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .quote-text {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(24px, 4vw, 38px);
+      font-weight: 400;
+      font-style: italic;
+      color: #fff;
+      line-height: 1.4;
+      margin-bottom: 24px;
+    }
+
+    .quote-attr {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── BREATHING EXERCISE ── */
+    .breath-section {
+      padding: 80px 24px;
+      text-align: center;
+      background: var(--bg2);
+    }
+
+    .breath-inner {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .breath-inner h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .breath-inner p {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 40px;
+      text-wrap: pretty;
+    }
+
+    .breath-orb-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .breath-orb {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 38% 38%, #f9c06a, var(--coral));
+      animation: orbBreathe 8s ease-in-out infinite;
+      cursor: pointer;
+      box-shadow: 0 0 0 0 rgba(232,96,64,0.3);
+    }
+
+    @keyframes orbBreathe {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(232,96,64,0.2); }
+      40% { transform: scale(1.45); box-shadow: 0 0 0 32px rgba(232,96,64,0.0); }
+      50% { transform: scale(1.45); box-shadow: 0 0 0 0 rgba(232,96,64,0.0); }
+      90% { transform: scale(1); }
+    }
+
+    .breath-label {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-style: italic;
+      color: var(--navy);
+      min-height: 28px;
+      transition: opacity 0.5s ease;
+    }
+
+    /* ── EMAIL SECTION ── */
+    .email-section {
+      padding: 80px 24px 100px;
+      text-align: center;
+    }
+
+    .email-inner {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .email-inner h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .email-inner p {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 36px;
+      text-wrap: pretty;
+    }
+
+    .email-form {
+      display: flex;
+      gap: 10px;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .email-input {
+      flex: 1;
+      padding: 14px 20px;
+      border: 2px solid rgba(27,43,75,0.2);
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      background: #fff;
+      color: var(--navy);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .email-input::placeholder { color: #b0b8cc; }
+    .email-input:focus { border-color: var(--coral); }
+
+    .email-btn {
+      padding: 14px 28px;
+      background: var(--coral);
+      color: #fff;
+      border: 2px solid var(--coral);
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .email-btn:hover { background: #d44e2a; border-color: #d44e2a; transform: translateY(-1px); }
+    .email-btn:active { transform: translateY(0); }
+
+    .success-msg {
+      display: none;
+      font-size: 16px;
+      color: var(--navy);
+      background: var(--sage);
+      border-radius: 16px;
+      padding: 16px 24px;
+      border: 2px solid rgba(27,43,75,0.1);
+    }
+
+    .success-msg.show { display: block; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(27,43,75,0.1);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 13px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .email-form { flex-direction: column; }
+      footer { padding: 24px 20px; flex-direction: column; text-align: center; }
+    }
+  </style>
 </head>
 <body>
+
+  <!-- NAV -->
   <nav>
-    <div class="nav-container">
-      <a href="/" class="logo">My Website</a>
-      <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/about.html">About</a>
-      </div>
-    </div>
+    <a class="logo" href="#">
+      <span class="face-wrap">
+        <svg width="40" height="40" viewBox="0 0 161 161" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="80.5" cy="80.5" r="77" fill="#EBBD40" stroke="black" stroke-width="7"></circle>
+          <path d="M40 65.9996C39.8333 62.8329 39.6986 58.3995 40.4986 55.9995C41.4986 52.9995 44.4991 42.9995 52.4991 43.4995C60.4991 43.9995 64.9991 50.9996 65.9991 54.4996C66.9991 57.9996 66.9991 64.9996 66.9991 65.4996" stroke="black" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M96.4991 64.5C96.3324 61.3333 96.8261 55.9181 97.6261 53.5181C98.6261 50.5181 101.627 40.5181 109.627 41.0181C117.627 41.5181 122.127 48.5181 123.127 52.0181C124.127 55.5181 124.127 64.0181 124.127 64.5181" stroke="black" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M119.269 102.048C116.15 120.798 104.638 129.481 98.7686 131.548C91.6706 134.048 84.7686 134.548 79.2686 132.548C72.2459 129.994 68.5 128 62.7686 123.548C60.3114 121.006 56.7683 117.213 53.2694 112.548C48.8045 106.596 48.1847 98.1913 47.7783 92.6806L47.7685 92.5481C47.362 87.0404 49.4074 81.2875 51.2686 80.0481C52.7703 79.0481 54.8173 78.1417 64.7309 83.3109C74.6445 88.4802 76.0706 89.6584 85.126 89.6584C90.7693 89.6584 97.2357 86.9969 100.269 85.0481C103.303 83.0994 111.86 76.1108 116.817 78.6954C121.774 81.28 121.523 87.0843 119.269 102.048Z" fill="black"></path>
+          <path d="M88.3448 128.944C79.2335 130.865 69.5797 123.661 64.4214 118.3C63.4965 117.339 63.8691 115.785 65.1432 115.39C76.5251 111.859 86.5936 118.146 89.5785 126.741C89.9134 127.705 89.3436 128.733 88.3448 128.944Z" fill="#C38076"></path>
+        </svg>
+      </span>
+      <span class="logo-text">More Neighborly</span>
+    </a>
   </nav>
 
-  <main>
-    <section class="hero">
-      <h1>Welcome to My Website</h1>
-      <p>How professionals build with AI. Just describe what you want.</p>
-      <a href="/about.html" class="button">Learn More</a>
-    </section>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="baby-badge">
+      <!-- hand-drawn alarm clock -->
+      <svg width="18" height="18" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- clock body -->
+        <circle cx="20" cy="22" r="13" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+        <!-- clock face inner -->
+        <circle cx="20" cy="22" r="1.5" fill="#1B2B4B"/>
+        <!-- hour hand -->
+        <path d="M20 22 L20 14" stroke="#1B2B4B" stroke-width="2" stroke-linecap="round"/>
+        <!-- minute hand -->
+        <path d="M20 22 L26 18" stroke="#1B2B4B" stroke-width="2" stroke-linecap="round"/>
+        <!-- left bell foot -->
+        <path d="M9 32 C7 34 6 36 7 37" stroke="#1B2B4B" stroke-width="2" stroke-linecap="round"/>
+        <!-- right bell foot -->
+        <path d="M31 32 C33 34 34 36 33 37" stroke="#1B2B4B" stroke-width="2" stroke-linecap="round"/>
+        <!-- left bell on top -->
+        <path d="M13 10 C11 7 8 6 7 8" stroke="#1B2B4B" stroke-width="2" stroke-linecap="round"/>
+        <!-- right bell on top -->
+        <path d="M27 10 C29 7 32 6 33 8" stroke="#1B2B4B" stroke-width="2" stroke-linecap="round"/>
+        <!-- bell button on top -->
+        <circle cx="20" cy="9" r="2" stroke="#1B2B4B" stroke-width="2"/>
+        <!-- little ring lines -->
+        <path d="M5 10 L3 8" stroke="#1B2B4B" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M35 10 L37 8" stroke="#1B2B4B" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      Taking a little break
+    </div>
 
-    <section class="features">
-      <div class="feature">
-        <h3>Simple</h3>
-        <p>Plain HTML, CSS, and JS. No frameworks, no build tools, no complexity.</p>
-      </div>
-      <div class="feature">
-        <h3>Fast</h3>
-        <p>No dependencies to install. Just open and start editing.</p>
-      </div>
-      <div class="feature">
-        <h3>Flexible</h3>
-        <p>Add pages, styles, and scripts as you need them.</p>
-      </div>
-    </section>
-  </main>
+    <h1>Be back <em>soon.</em></h1>
+    <p class="subtitle">A new neighbor arrived — our baby!</p>
+    <p class="body">
+      We're taking some time to get used to being parents. When we return, we'll be experimenting with <strong>Loving Kindness (metta) meditation</strong>, prayer, and tools that make these practices more accessible — translating them across different traditions and languages of the heart.
+    </p>
+  </section>
 
+  <!-- DIVIDER -->
+  <div class="divider">What's coming</div>
+
+  <!-- COMING SOON CARDS -->
+  <section class="coming">
+    <h2 class="coming-heading">Gatherings with heart.</h2>
+    <p class="coming-sub">New experimental offerings rooted in the ancient practice of wishing all beings well.</p>
+
+    <div class="cards">
+      <div class="card card-full">
+        <!-- Hand-drawn heart -->
+        <svg class="card-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M28 46 C28 46 8 34 8 20 C8 13 13 8 20 8 C24 8 27 10 28 13 C29 10 32 8 36 8 C43 8 48 13 48 20 C48 34 28 46 28 46 Z" stroke="#1B2B4B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="card-body">
+          <div class="card-left">
+            <h3>Metta Meditation</h3>
+            <p>Loving Kindness (metta) is the practice of intentionally sending warmth and goodwill — first where it comes naturally, then rippling outward. The more you practice, the wider the circle grows.</p>
+            <p class="metta-note">You decide where to start based on what feels right for you. There's no wrong order — just honest practice.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="display:none;">
+        <!-- Hands pressed together in prayer / open book -->
+        <svg class="card-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- open book / scripture -->
+          <path d="M8 14 C8 12 10 11 12 11 L26 13 L26 44 L12 42 C10 42 8 41 8 39 Z" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M48 14 C48 12 46 11 44 11 L30 13 L30 44 L44 42 C46 42 48 41 48 39 Z" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M26 13 L30 13" stroke="#1B2B4B" stroke-width="2" stroke-linecap="round"/>
+          <path d="M26 44 L30 44" stroke="#1B2B4B" stroke-width="2" stroke-linecap="round"/>
+          <!-- text lines left page -->
+          <path d="M13 19 L23 20" stroke="#1B2B4B" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M13 24 L23 25" stroke="#1B2B4B" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M13 29 L20 30" stroke="#1B2B4B" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M13 34 L23 35" stroke="#1B2B4B" stroke-width="1.4" stroke-linecap="round"/>
+          <!-- text lines right page -->
+          <path d="M33 19 L43 20" stroke="#1B2B4B" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M33 24 L43 25" stroke="#1B2B4B" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M33 29 L40 30" stroke="#1B2B4B" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M33 34 L43 35" stroke="#1B2B4B" stroke-width="1.4" stroke-linecap="round"/>
+          <!-- small heart floating above -->
+          <path d="M28 7 C28 5 26 4 25 5 C24 6 25 8 28 10 C31 8 32 6 31 5 C30 4 28 5 28 7 Z" stroke="#1B2B4B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>Interfaith Prayer</h3>
+        <p>Translating the practice into different religious languages. Buddhist, Christian, Jewish, secular — all welcome.</p>
+      </div>
+
+      <div class="card">
+        <!-- Person writing / journaling at a table -->
+        <svg class="card-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- head -->
+          <circle cx="18" cy="9" r="5.5" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- body -->
+          <path d="M18 15 L18 28" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- arm reaching to write -->
+          <path d="M18 19 C24 20 32 22 38 26" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- pen in hand -->
+          <path d="M38 26 L42 22" stroke="#1B2B4B" stroke-width="2" stroke-linecap="round"/>
+          <path d="M42 22 L44 20" stroke="#1B2B4B" stroke-width="1.6" stroke-linecap="round"/>
+          <!-- table surface -->
+          <path d="M6 34 L50 34" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- notebook on table -->
+          <rect x="20" y="26" width="22" height="8" rx="1.5" stroke="#1B2B4B" stroke-width="2"/>
+          <!-- notebook lines -->
+          <path d="M23 29 L39 29" stroke="#1B2B4B" stroke-width="1.3" stroke-linecap="round"/>
+          <path d="M23 32 L36 32" stroke="#1B2B4B" stroke-width="1.3" stroke-linecap="round"/>
+          <!-- other arm -->
+          <path d="M18 19 C13 21 10 26 10 30" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- legs -->
+          <path d="M18 28 C16 32 15 36 15 40" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M18 28 C20 32 21 36 21 40" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+        <h3>Accessible Tools</h3>
+        <p>Simple, shareable resources to help you bring warmth and goodwill into everyday life.</p>
+      </div>
+
+      <div class="card">
+        <!-- Two people walking together -->
+        <svg class="card-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- person 1 head -->
+          <circle cx="16" cy="9" r="5" stroke="#1B2B4B" stroke-width="2.2"/>
+          <!-- person 1 body -->
+          <path d="M16 14 L16 26" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- person 1 arm forward -->
+          <path d="M16 18 C20 20 24 22 26 24" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- person 1 arm back -->
+          <path d="M16 18 C12 20 10 22 9 25" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- person 1 legs walking -->
+          <path d="M16 26 C14 30 12 34 10 38" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M16 26 C18 30 20 34 22 38" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+
+          <!-- person 2 head -->
+          <circle cx="38" cy="10" r="5" stroke="#1B2B4B" stroke-width="2.2"/>
+          <!-- person 2 body -->
+          <path d="M38 15 L38 27" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- person 2 arm toward person 1 (reaching) -->
+          <path d="M38 19 C33 21 29 23 27 24" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- person 2 arm out -->
+          <path d="M38 19 C42 21 45 23 46 26" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- person 2 legs -->
+          <path d="M38 27 C36 31 34 35 33 39" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M38 27 C40 31 42 35 43 39" stroke="#1B2B4B" stroke-width="2.2" stroke-linecap="round"/>
+
+          <!-- ground -->
+          <path d="M6 42 Q28 44 50 42" stroke="#1B2B4B" stroke-width="1.8" stroke-linecap="round"/>
+
+          <!-- small heart between them -->
+          <path d="M27 14 C27 12.5 25.5 12 25 13 C24.5 14 25 15.5 27 17 C29 15.5 29.5 14 29 13 C28.5 12 27 12.5 27 14 Z" stroke="#1B2B4B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>Neighborly Gatherings</h3>
+        <p>Small, intimate meetups in Williamsburg. The same friendly format, new depth of practice.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- METTA QUOTE -->
+  <section class="quote-section">
+    <div class="quote-inner">
+      <p class="quote-label">The metta prayer</p>
+      <p class="quote-text">"May you be happy. May you be healthy. May you be safe. May you live with ease."</p>
+      <p class="quote-attr">Ancient Pali blessing — the heart of loving kindness</p>
+    </div>
+  </section>
+
+
+
+  <!-- EMAIL SIGNUP -->
+  <section class="email-section">
+    <div class="email-inner">
+      <h2>Get an email when we're back.</h2>
+      <p>Drop your email and we'll reach out when the first new gathering is ready. No spam — just a neighborly hello.</p>
+
+      <form class="email-form" id="emailForm">
+        <input
+          type="email"
+          class="email-input"
+          id="emailInput"
+          placeholder="your@email.com"
+          required
+        />
+        <button type="submit" class="email-btn">Notify me</button>
+      </form>
+      <div class="success-msg" id="successMsg">
+        ✨ You're on the list! We'll be in touch when we're back. May you be well.
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
-    <p>Built with <a href="https://www.ship.studio/">Ship Studio</a></p>
+    <div>
+      <svg width="22" height="22" viewBox="0 0 161 161" fill="none" style="vertical-align:middle;margin-right:6px;" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="80.5" cy="80.5" r="77" fill="#EBBD40" stroke="black" stroke-width="7"></circle>
+        <path d="M40 65.9996C39.8333 62.8329 39.6986 58.3995 40.4986 55.9995C41.4986 52.9995 44.4991 42.9995 52.4991 43.4995C60.4991 43.9995 64.9991 50.9996 65.9991 54.4996C66.9991 57.9996 66.9991 64.9996 66.9991 65.4996" stroke="black" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M96.4991 64.5C96.3324 61.3333 96.8261 55.9181 97.6261 53.5181C98.6261 50.5181 101.627 40.5181 109.627 41.0181C117.627 41.5181 122.127 48.5181 123.127 52.0181C124.127 55.5181 124.127 64.0181 124.127 64.5181" stroke="black" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M119.269 102.048C116.15 120.798 104.638 129.481 98.7686 131.548C91.6706 134.048 84.7686 134.548 79.2686 132.548C72.2459 129.994 68.5 128 62.7686 123.548C60.3114 121.006 56.7683 117.213 53.2694 112.548C48.8045 106.596 48.1847 98.1913 47.7783 92.6806L47.7685 92.5481C47.362 87.0404 49.4074 81.2875 51.2686 80.0481C52.7703 79.0481 54.8173 78.1417 64.7309 83.3109C74.6445 88.4802 76.0706 89.6584 85.126 89.6584C90.7693 89.6584 97.2357 86.9969 100.269 85.0481C103.303 83.0994 111.86 76.1108 116.817 78.6954C121.774 81.28 121.523 87.0843 119.269 102.048Z" fill="black"></path>
+        <path d="M88.3448 128.944C79.2335 130.865 69.5797 123.661 64.4214 118.3C63.4965 117.339 63.8691 115.785 65.1432 115.39C76.5251 111.859 86.5936 118.146 89.5785 126.741C89.9134 127.705 89.3436 128.733 88.3448 128.944Z" fill="#C38076"></path>
+      </svg>
+      More Neighborly
+    </div>
+    <div>Williamsburg, VA &nbsp;·&nbsp; <a href="mailto:moreneighborly@gmail.com">moreneighborly@gmail.com</a></div>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // ── Breathing label cycle
+    const labels = ['Breathe in...', 'Hold...', 'Breathe out...', 'Rest...'];
+    const durations = [3500, 500, 3500, 500]; // ms per phase — matches 8s animation
+    let phase = 0;
+    const labelEl = document.getElementById('breathLabel');
+
+    function nextPhase() {
+      phase = (phase + 1) % labels.length;
+      labelEl.style.opacity = '0';
+      setTimeout(() => {
+        labelEl.textContent = labels[phase];
+        labelEl.style.opacity = '1';
+      }, 300);
+      setTimeout(nextPhase, durations[phase]);
+    }
+
+    setTimeout(nextPhase, durations[0]);
+
+    // ── Email form
+    const form = document.getElementById('emailForm');
+    const successMsg = document.getElementById('successMsg');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      form.style.display = 'none';
+      successMsg.classList.add('show');
+    });
+  </script>
+
 </body>
 </html>
